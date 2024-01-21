@@ -83,7 +83,10 @@ class TOTAL3D(nn.Module):
                 refined_output = self.output_adjust(input)
                 all_output.update(refined_output)
 
-        loss_dict=self.loss(all_output,data)
+        if 'no_loss' in self.config and self.config['no_loss']:
+            loss_dict = None
+        else:
+            loss_dict=self.loss(all_output,data)
 
         return all_output,loss_dict
 
